@@ -4,17 +4,33 @@ namespace App\Http\Controllers\Admin\Tag;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {
     public function index()
     {
-        $tags = Tag::select('name', 'article_tag.article_id', 'tags.id')
-            ->leftJoin('article_tag', 'tags.id', '=', 'article_tag.tag_id')
-            ->whereNULL('article_tag.article_id')
-            ->paginate(5);
-        return view('admin.tags.index', compact('tags'));
+        if (request()->ajax()) {
+            $data = Tag::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($tag) {
+                    $actionBtn = '
+                    <div class="flex item-center justify-center">
+                        <a href="' . route('tags.edit', $tag->id) . '" class="mr-2 transform hover:text-indigo-500 hover:scale-110">
+                            <span class="bx bx-pencil text-lg"></span>
+                        </a>
+                        <button data-val="' . route('tags.destroy', $tag->id) . '" class="btn_empty mr-2 transform hover:text-indigo-500 hover:scale-110 text-red-600">
+                            <span class="bx bx-trash text-lg"></span>
+                        </button>
+                    </div>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('admin.tags.index');
     }
 
     public function create()

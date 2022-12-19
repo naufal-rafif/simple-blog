@@ -14,13 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title');
             $table->string('slug');
             $table->string('writer');
-            $table->unsignedBiginteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')
-                ->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUlid('category_id', 36);
             $table->string('image')->nullable();
             $table->text('content')->nullable();
             $table->boolean('status')->nullable();

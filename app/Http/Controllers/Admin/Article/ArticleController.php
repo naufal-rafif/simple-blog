@@ -14,6 +14,7 @@ use App\Http\Requests\ArticleUpdateRequest;
 use App\Services\ArticleService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Yajra\DataTables\DataTables;
 
 class ArticleController extends Controller
 {
@@ -26,7 +27,24 @@ class ArticleController extends Controller
 
     public function index()
     {
+        //     if (request()->ajax()) {
+        //         $model = Article::with('tags');
+        //         return DataTables::of($model)
+        //             ->addColumn('tags', function (Article $article) {
+        //                 return $article->tags->name;
+        //             })
+        //             ->toJson();
+        //     }
+        //     return view('admin/articles/index');
+        // if (request()->ajax()) {
+        //     return datatables()->of(Article::select('*'))
+        //         ->addColumn('action', 'companies.action')
+        //         ->rawColumns(['action'])
+        //         ->addIndexColumn()
+        //         ->make(true);
+        // }
         $articles = $this->articles->showDeletedArticle(false);
+        // return response()->json($articles, 201);
         return view('admin/articles/index', compact('articles'));
     }
 

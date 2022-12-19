@@ -7,7 +7,7 @@
             <h2 class="font-semibold text-2xl">Tags</h2>
         </div>
         <div class="flex flex-wrap items-center mb-3">
-            <form action="" method="GET" class="flex items-center relative mb-5" autocomplete="off">
+            <form action="" method="GET" class="flex items-center relative mb-5 hidden" autocomplete="off">
                 @csrf
                 <input type="text" name="search" class="text-input w-60 mr-3 pl-8" placeholder="Find Tags">
                 <button type="submit" class="absolute bx bx-search-alt ml-2 text-gray-400"></button>
@@ -25,34 +25,17 @@
    
 
    <div class="table-roll w-full overflow-x-auto">
-       <table class="table-auto w-full mb-5">
+       <table class="table-auto w-full mb-5" id="tbl_list" style="width: 100%">
            <thead>
                <tr class="bg-gray-200 text-gray-600 text-sm leading-normal">
-                   <th class="py-3 px-3 text-left">Tag Name</th>
+                   <th class="py-3 px-3 text-left">Tag</th>
                    <th class="py-3 px-3 text-center">Action</th>
                </tr>
            </thead>
            <tbody class="text-gray-600 text-sm font-light" id="tableList">
-            @foreach ($tags as $tag)
-            <tr class="border-b border-gray-200 hover:bg-gray-100">
-                <td class="py-3 px-3 text-left">
-                    <span class="text-sm py-1 px-2 rounded-lg" style="color: {{$tag->color}}; background: {{$tag->background}}">{{$tag->name}}</span>
-                </td>
-                <td class="py-3 px-3 text-center">
-                    <div class="flex item-center justify-center">
-                        <a href="{{route('tags.edit',$tag->id)}}" class="mr-2 transform hover:text-indigo-500 hover:scale-110">
-                            <span class="bx bx-pencil text-lg"></span>
-                        </a>
-                        <button data-val="{{route('tags.destroy',$tag->id)}}" class="btn_empty mr-2 transform hover:text-indigo-500 hover:scale-110 text-red-600">
-                            <span class="bx bx-trash text-lg"></span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        @endforeach
            </tbody>
        </table>
-       {!! $tags->links() !!}
+       {{-- {!! $tags->links() !!} --}}
    </div>
 </div>
 
@@ -61,5 +44,17 @@
 @endpush
 @push('scripts')
     @include('admin.tags.scripts')
+@endpush
+@push('styles')
+  <!-- Styles -->
+  <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+  <style>
+    .dataTables_filter > label > input {
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 6px 10px;
+    }
+  </style>
 @endpush
 @endsection

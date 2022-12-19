@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             CategorySeeder::class,
-            RoleSeeder::class,
+            // RoleSeeder::class,
             AdminSeeder::class,
             TagSeeder::class,
-            ArticleSeeder::class,
-            ArticleTagSeeder::class,
+            // ArticleSeeder::class,
+            // ArticleTagSeeder::class,
             // Article::factory(20)->create(),
         ]);
     }

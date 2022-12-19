@@ -1,9 +1,13 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 <script>
     const saveAsDraft = document.getElementById('saveDraft')
     const saveAsPublication = document.getElementById('savePublication')
     const showModalDelete = document.getElementById('tableList')
     const closeModalDelete = document.getElementById('closeModalDelete')
     const checkRecovery = document.getElementById('checkRecovery')
+    const imageChange = document.getElementById('imageComponent')
     
     if(saveAsDraft){
         saveAsDraft.addEventListener('click', (e)=>{
@@ -180,4 +184,11 @@
         }
     }
 
+    if(imageChange){
+        imageChange.addEventListener('change', (e) => {
+            const [file] = e.target.files
+            document.getElementById('changeImage').src = URL.createObjectURL(file)
+        })
+    }
+    
 </script>

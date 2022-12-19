@@ -5,17 +5,33 @@ namespace App\Http\Controllers\Admin\Category;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
     public function index()
     {
         // pakai db raw
-        $categories = Category::select('name', 'category_id', 'categories.id')
-            ->leftJoin('articles', 'categories.id', '=', 'articles.category_id')
-            ->whereNULL('category_id')
-            ->paginate(5);
-        return view('admin.categories.index', compact('categories'));
+        if (request()->ajax()) {
+            $data = Category::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($tag) {
+                    $actionBtn = '
+                    <div class="flex item-center justify-center">
+                        <a href="' . route('categories.edit', $tag->id) . '" class="mr-2 transform hover:text-indigo-500 hover:scale-110">
+                            <span class="bx bx-pencil text-lg"></span>
+                        </a>
+                        <button data-val="' . route('categories.destroy', $tag->id) . '" class="btn_empty mr-2 transform hover:text-indigo-500 hover:scale-110 text-red-600">
+                            <span class="bx bx-trash text-lg"></span>
+                        </button>
+                    </div>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('admin.categories.index');
     }
 
     public function create()
