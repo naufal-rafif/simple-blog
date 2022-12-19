@@ -6,6 +6,7 @@
     <meta content='width=device-width, initial-scale=1.0, user-scalable=0' name='viewport'/>
     <title>Dashboard Simple Blog</title>
     @include('layouts._partials.dashboard.style')
+    @stack('styles')
 </head>
 <body class="bg-[#f1f5f9]" >
     <!-- Header Start -->

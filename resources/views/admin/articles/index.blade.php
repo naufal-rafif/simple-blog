@@ -7,7 +7,7 @@
             <h2 class="font-semibold text-2xl">Articles</h2>
         </div>
         <div class="flex flex-wrap items-center mb-3">
-            <form action="" method="GET" class="flex items-center relative mb-5" autocomplete="off">
+            <form action="" method="GET" class="flex items-center relative mb-5 hidden" autocomplete="off">
                 @csrf
                 <input type="text" name="search" class="text-input w-60 mr-3 pl-8" placeholder="Find Article">
                 <button type="submit" class="absolute bx bx-search-alt ml-2 text-gray-400"></button>
@@ -120,5 +120,18 @@
 @endpush
 @push('scripts')
     @include('admin.articles.scripts')
+@endpush
+
+@push('styles')
+  <!-- Styles -->
+  <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+  <style>
+    .dataTables_filter > label > input {
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 6px 10px;
+    }
+  </style>
 @endpush
 @endsection

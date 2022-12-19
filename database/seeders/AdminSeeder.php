@@ -16,10 +16,11 @@ class AdminSeeder extends Seeder
     public function run()
     {
         User::create([
+            'uuid' => fake()->uuid(),
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123456')
-        ])->assignRole('writer', 'admin');
+        ]);
     }
 }

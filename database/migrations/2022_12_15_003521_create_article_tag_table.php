@@ -15,13 +15,8 @@ return new class extends Migration
     {
         Schema::create('article_tag', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBiginteger('article_id')->unsigned();
-            $table->unsignedBiginteger('tag_id')->unsigned();
-
-            $table->foreign('article_id')->references('id')
-                ->on('articles')->onDelete('cascade');
-            $table->foreign('tag_id')->references('id')
-                ->on('tags')->onDelete('cascade');
+            $table->foreignUlid('article_id', 36);
+            $table->foreignUlid('tag_id', 36);
         });
     }
 

@@ -64,6 +64,7 @@
                     <span class="error text-red-600 text-xs" id="tagError"></span>
                 </div>
                 <div class="px-5 mb-5">
+                    <img src="{{asset('src/img/article/'.$article->image)}}" alt="" class="w-full" id="changeImage">
                     <div class="relative w-full flex items-center">
                         <label for="" class="mr-3 mb-2">Image</label>
                         <div class="group">

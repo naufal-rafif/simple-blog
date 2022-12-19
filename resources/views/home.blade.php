@@ -2,7 +2,8 @@
 
 @section('content')
 {{-- {{dd($articles)}} --}}
-@if (isset($articles))
+
+@if (count($articles)>0)
     <section id="hero">
         <div class="container mx-auto mt-20 md:mt-24 md:px-12">
             <div class="card bg-black md:rounded-[30px] w-full heroHeight"
