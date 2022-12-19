@@ -20,7 +20,7 @@
    <div class="flex justify-between items-center mb-5">
         <div class="md:flex items-center">
             <p class="text-lg font-semibold">Article List</p>
-            <button class="md:ml-8 text-sm text-red-600 font-semibold hidden" data-val="{{route('dashboard.articles.deleteMultiple')}}" id="checkHapus">Delete All</button>
+            <button class="md:ml-8 text-sm text-red-600 font-semibold hidden" data-val="{{route('dashboard.articles.deleteMultiple')}}" data-message="All deleted data can be found at trash directory" id="checkDelete">Delete All</button>
         </div>
         <a href="{{route('dashboard.articles.temp')}}" class="flex items-center text-red-600">
             <p class="text-lg font-semibold"><span class="bx bx-trash"></span></p>
@@ -82,7 +82,7 @@
                         <a href="{{route('articles.edit',$article->slug)}}" class="mr-2 transform hover:text-indigo-500 hover:scale-110">
                             <span class="bx bx-pencil text-lg"></span>
                         </a>
-                        <button data-val="{{route('dashboard.articles.delete',$article->id)}}" class="btn_empty mr-2 transform hover:text-indigo-500 hover:scale-110 text-red-600">
+                        <button data-val="{{route('dashboard.articles.delete',$article->id)}}" data-action="delete" data-message="Data will go to the trash" class="btn_empty mr-2 transform hover:text-indigo-500 hover:scale-110 text-red-600">
                             <span class="bx bx-trash text-lg"></span>
                         </button>
                         <form action="{{route('dashboard.articles.updateStatus',$article->id)}}" method="post" autocomplete="off" id="formUpload" enctype="multipart/form-data">
@@ -115,105 +115,10 @@
        {!! $articles->links() !!}
    </div>
 </div>
-
-
-<div class="relative z-[99999] hide hidden" id="modalSosmed" aria-labelledby="modal-title" role="dialog"
-    aria-modal="true">
-    <div class="fixed inset-0 z-10 overflow-y-auto bg-gray-500/75 ">
-        <div class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0"
-            id="closeModalSosmed">
-            <div
-                class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg py-5">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="py-8">
-                        <div class="px-5">
-                            <form method="POST" id="formDelete">
-                                @csrf
-                                <input type="hidden" name="ids" id="ids">
-                                <div class="text-center"><span class="bx bx-info-circle text-yellow-300 text-6xl"></span></div>
-                                <h1 class="font-semibold text-center text-xl text-gray-600">Are you sure ?</h1>
-                                <p class="font-thin text-center text-lg text-gray-600" id="warningText">Data will go to the trash</p>
-                                <div class="flex justify-center mt-5">
-                                    <div class="w-1/2 px-4 py-2 mx-2 text-gray-500 border-2 border-gray-300 font-semibold text-sm rounded-lg hover:bg-gray-500 hover:text-white text-center cursor-pointer" id="closeButton">Cancel</div>
-                                    <button type="submit" class="w-1/2 px-4 py-2 text-white border-2 border-gray-700 mx-2 bg-blue-500 font-semibold text-sm rounded-lg hover:bg-blue-700 hover:text-white text-center">Yes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" id=""></div> -->
-
-</div>
-<script>
-    const showModalSosmed = document.getElementById('tableList')
-    const closeModalSosmed = document.getElementById('closeModalSosmed')
-    // const submitButton = document.getElementById('submitButton')
-
-    showModalSosmed.addEventListener('click', (e) => {
-        console.log()
-        // console.log(e.target.parentElement.dataset.val)
-        if (e.target.parentElement.classList[0] == 'btn_empty') {
-            document.getElementById('modalSosmed').classList.toggle('hidden')
-            document.getElementById('modalSosmed').classList.add('show')
-            document.getElementById('modalSosmed').classList.remove('hide')
-            document.getElementById('formDelete').action = e.target.parentElement.dataset.val
-        }
-    })
-    
-    // submitButton.addEventListener('click', (e) => {
-    //     // console.log('hai')
-    //     document.getElementById('formDelete').submit()
-    // })
-    
-    closeModalSosmed.addEventListener('click', (e) => {
-        // console.log(e.target.id)
-        if (e.target.id == 'closeModalSosmed' || e.target.id == 'closeButton') {
-            document.getElementById('modalSosmed').classList.remove('show')
-            document.getElementById('modalSosmed').classList.add('hide')
-            setTimeout(function () { document.getElementById('modalSosmed').classList.toggle('hidden') }, 500);
-        }
-    })
-
-    document.getElementById('checkHapus').addEventListener('click', ()=>{
-        const checkbox = document.getElementsByClassName("checkbox");
-        let checkValue = ''
-        for(i=0;i<checkbox.length;i++){
-            if(checkbox[i].checked == true){
-                checkValue += checkbox[i].dataset.id + ','
-            }
-        }
-        document.getElementById('modalSosmed').classList.toggle('hidden')
-        document.getElementById('modalSosmed').classList.add('show')
-        document.getElementById('modalSosmed').classList.remove('hide')
-        document.getElementById('warningText').innerHTML = 'deleted data can be found at trash directory'
-        document.getElementById('checkHapus').dataset.val
-        document.querySelector('#formDelete > #ids').value = checkValue.slice(0, -1)
-        document.getElementById('formDelete').action = document.getElementById('checkHapus').dataset.val
-    })
-    
-    const checkBoxes = (e) => {
-        const checkbox = document.getElementsByClassName("checkbox");
-        let checkValue = ''
-        let lengthChecked = 0
-        let lengthUnchecked = 0
-        for(i=0;i<checkbox.length;i++){
-            if(checkbox[i].checked == true){
-                checkValue += checkbox[i].dataset.id + ','
-                lengthChecked = lengthChecked + 1
-            } else {
-                lengthUnchecked = lengthUnchecked + 1
-            }
-        }
-        if(lengthChecked == 0){
-            document.getElementById('checkboxEvent').checked = false
-            document.getElementById('checkHapus').classList.add('hidden')
-        } else {
-            document.getElementById('checkHapus').classList.remove('hidden')
-        }
-        // e.checked == true ? 
-    }
-</script>
+@push('modals')
+    @include('admin.articles.modals')
+@endpush
+@push('scripts')
+    @include('admin.articles.scripts')
+@endpush
 @endsection

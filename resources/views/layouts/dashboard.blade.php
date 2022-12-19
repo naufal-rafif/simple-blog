@@ -12,7 +12,8 @@
     @include('layouts._partials.dashboard.header')
     <!-- Header End -->
     <!-- Sidebar Start -->
-    @include('layouts._partials.dashboard.sidebar')
+    {{-- @include('layouts._partials.dashboard.sidebar') --}}
+    <x-dashboard.sidebar/>
     <!-- Sidebar End -->
     <!-- Main Content Start -->
     <main class="ml-0 lg:ml-64 px-5 pt-20">
@@ -20,6 +21,8 @@
     </main>
     @include('layouts._partials.dashboard.flashcard')
     <!-- Main Content End -->
+    @stack('modals')
+    @stack('scripts')
     @include('layouts._partials.dashboard.scripts')
 </body>
 </html>

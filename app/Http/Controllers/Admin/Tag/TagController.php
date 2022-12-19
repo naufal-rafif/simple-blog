@@ -60,11 +60,11 @@ class TagController extends Controller
         if (Tag::find($id)->update($data)) {
             return redirect()->route('tags.index')
                 ->withInput()
-                ->with('success', 'Tag created successfully');
+                ->with('success', 'Tag updated successfully');
         }
         return redirect()->route('tags.index')
             ->withInput()
-            ->with('error', "Can't create tag.");
+            ->with('error', "Can't update tag.");
     }
 
     public function destroy($id)

@@ -36,14 +36,12 @@
 
 <body>
     <!-- Header Start-->
-    {{-- @include('layouts._partials.homepage.header') --}}
     <x-header/>
     <!-- Header End -->
     {{-- Content --}}
     @yield('content')
     {{-- Content End --}}
-
-    @include('layouts._partials.homepage.footer')
+    @include('layouts._partials.homepage.footer')    
     @include('layouts._partials.homepage.script')    
 </body>
 

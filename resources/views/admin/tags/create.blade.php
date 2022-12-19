@@ -46,16 +46,8 @@
     </form>
 </div>
 
-<script>
-    document.getElementById('tagName').addEventListener('input', ()=> {
-        document.getElementById('changePreview').innerHTML = document.getElementById('tagName').value
-    })
-    document.getElementById('tagColor').addEventListener('input', ()=> {
-        document.getElementById('changePreview').style.color = document.getElementById('tagColor').value
-    })
-    document.getElementById('tagBackground').addEventListener('input', ()=> {
-        document.getElementById('changePreview').style.background = document.getElementById('tagBackground').value
-    })
-</script>
+@push('scripts')
+    @include('admin.tags.scripts')
+@endpush
 
 @endsection

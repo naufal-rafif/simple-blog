@@ -39,16 +39,16 @@
     <div class="container mx-auto px-4 md:px-12">
         <div class="flex items-end justify-between mt-8">
             <div class="text-sm md:text-base">
-                <p class="font-light mb-1">Penulis</p>
+                <p class="font-light mb-1">Writer</p>
                 <p class="font-bold">{{$article->writer}}</p>
             </div>
             <div class="text-right relative">
-                <p class="font-light text-sm md:text-base mb-1">Bagikan</p>
+                <p class="font-light text-sm md:text-base mb-1">Share</p>
                 <div class="flex">
                     <a onclick="Copy()"
                         class="flex items-center mr-1 border-[2px] p-1 rounded-sm border-gray-200 hover:bg-gray-200 cursor-pointer">
                         <span class="bx bx-copy mr-1"></span>
-                        <span class="text-xs">Salin Link</span>
+                        <span class="text-xs">Copy Link</span>
                     </a>
                     <a onclick="shareFB()"
                         class="bx bxl-facebook mr-1 border-[2px] p-1 rounded-sm border-gray-200 hover:bg-gray-200 cursor-pointer"></a>
