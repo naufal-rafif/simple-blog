@@ -14,7 +14,7 @@ class HomeController extends Controller
             ->where('delete', '=', '0')
             ->where('status', '=', '1')
             ->orderBy('created_at', 'desc')
-            ->paginate(5);
+            ->paginate(10);
         return view('home', compact('articles'));
     }
 

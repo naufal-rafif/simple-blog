@@ -36,7 +36,8 @@
 
 <body>
     <!-- Header Start-->
-    @include('layouts._partials.homepage.header')
+    {{-- @include('layouts._partials.homepage.header') --}}
+    <x-header/>
     <!-- Header End -->
     {{-- Content --}}
     @yield('content')
