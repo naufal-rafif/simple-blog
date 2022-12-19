@@ -1924,6 +1924,7 @@ header > .w-40 {
 
 #modalSosmed.show,
 #modalAdd.show,
+#modalDelete.show,
 #modalGallery.show,
 #modalMessage.show,
 #modalUbahEmail.show,
@@ -1935,6 +1936,7 @@ header > .w-40 {
 
 #modalSosmed.hide,
 #modalAdd.hide,
+#modalDelete.hide,
 #modalGallery.hide,
 #modalMessage.hide,
 #modalUbahEmail.hide,
